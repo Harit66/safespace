@@ -7,9 +7,11 @@ import {
   Radio,
   RadioGroup,
   RadioProps,
+  TextField,
+  TextareaAutosize,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import smartHome from "../../../assets/icons/smartHome.svg";
 import Footer from "../../../constant/Footer/Footer";
 import CustomSteps from "../../../constant/CustomStepper/CustomStepper";
@@ -17,7 +19,7 @@ import TextInput from "../../../constant/TextInput/TextInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import styled from "@emotion/styled";
+import { styled } from "@mui/system";
 
 type Props = {};
 
@@ -30,6 +32,11 @@ type FormType = {
   Address: string;
   whenHappened: string;
 };
+
+interface Row {
+  name: string;
+  mobile: string;
+}
 
 const CreateNewCompliantcompliant = (props: Props) => {
   const BpIcon = styled("span")(({ theme }) => ({
@@ -71,6 +78,8 @@ const CreateNewCompliantcompliant = (props: Props) => {
   });
 
   const [currentSection, setCurrentSection] = useState<number>(0);
+  const [rows, setRows] = useState<Row[]>([{ name: "", mobile: "" }]);
+
   const totalSections = 4;
 
   const handleNext = () => {
@@ -83,6 +92,18 @@ const CreateNewCompliantcompliant = (props: Props) => {
     if (currentSection > 0) {
       setCurrentSection(currentSection - 1);
     }
+  };
+
+  const handleInputChange =
+    (index: number, key: keyof Row) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const updatedRows = [...rows];
+      updatedRows[index][key] = event.target.value;
+      setRows(updatedRows);
+    };
+
+  const handleAddRow = () => {
+    setRows([...rows, { name: "", mobile: "" }]);
   };
 
   const validationSchema = yup.object().shape({
@@ -124,7 +145,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
           Report a complaint{" "}
         </Typography>
         <Box
-          className="flex flex-row justify-start w-full bg-white"
+          className="flex flex-row justify-start w-full bg-white overflow-auto"
           sx={{ maxHeight: "calc(100vh - 210px)" }}
         >
           <Box className="w-1/3  border-r-2  border-solid border-[#DBDADE] pl-3 p-6 flex align-top flex-row gap-8">
@@ -344,7 +365,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 </Typography>
 
                 <Box className="grid grid-cols-2 gap-4 mt-2">
-                  <Box className="">
+                  <Box className="w-full">
                     <TextInput
                       error={errors?.whenHappened?.message}
                       label="When it happened  (Month/Date)"
@@ -358,7 +379,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                     <FormControl>
                       <FormLabel id="demo-customized-radios ">
                         {" "}
-                        What is this report about?
+                        How many times it happened{" "}
                       </FormLabel>
                       <RadioGroup
                         defaultValue="One"
@@ -402,14 +423,273 @@ const CreateNewCompliantcompliant = (props: Props) => {
                           control={<BpRadio />}
                           label="Home"
                         />
+                        <Box className=" flex flex-row justify-center">
+                          <FormControlLabel
+                            value="Other"
+                            control={<BpRadio />}
+                            label="Other"
+                          />
+                          <TextField
+                            className="mt-1"
+                            inputProps={{
+                              style: {
+                                padding: 0,
+                              },
+                            }}
+                          />{" "}
+                        </Box>
+                      </RadioGroup>
+                    </FormControl>
+                  </Box>
+                  <Box className="">
+                    <FormControl>
+                      <FormLabel id="demo-customized-radios ">
+                        {" "}
+                        Report for{" "}
+                      </FormLabel>
+                      <RadioGroup
+                        defaultValue="Self"
+                        aria-labelledby="demo-customized-radios"
+                        name="customized-radios"
+                        className=""
+                        row
+                      >
                         <FormControlLabel
-                          value="Other"
+                          value="Self"
                           control={<BpRadio />}
-                          label="Other"
+                          label="Self"
+                        />
+                        <FormControlLabel
+                          value="Someone else"
+                          control={<BpRadio />}
+                          label="Someone else"
                         />
                       </RadioGroup>
                     </FormControl>
                   </Box>
+                  <Box className="">
+                    <FormControl>
+                      <FormLabel id="demo-customized-radios ">
+                        {" "}
+                        Any Witnesses ?{" "}
+                      </FormLabel>
+                      <RadioGroup
+                        defaultValue="NO"
+                        aria-labelledby="demo-customized-radios"
+                        name="customized-radios"
+                        className=""
+                        row
+                      >
+                        <FormControlLabel
+                          value="YES"
+                          control={<BpRadio />}
+                          label="YES"
+                        />
+                        <FormControlLabel
+                          value="NO"
+                          control={<BpRadio />}
+                          label="NO"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </Box>
+                  <Box className="">
+                    <FormControl>
+                      <FormLabel id="demo-customized-radios ">
+                        {" "}
+                        Have you confided with anyone about this case?{" "}
+                      </FormLabel>
+                      <RadioGroup
+                        defaultValue="NO"
+                        aria-labelledby="demo-customized-radios"
+                        name="customized-radios"
+                        className=""
+                        row
+                      >
+                        <FormControlLabel
+                          value="YES"
+                          control={<BpRadio />}
+                          label="YES"
+                        />
+                        <FormControlLabel
+                          value="NO"
+                          control={<BpRadio />}
+                          label="NO"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </Box>
+                  <Box className="">
+                    <FormLabel id="demo-customized-radios ">
+                      {" "}
+                      Documentation if any{" "}
+                    </FormLabel>
+                    <FormControl className="flex flex-row gap-8 mt-1 items-center justify-start">
+                      <FormControl>
+                        <FormLabel className="text-sm"> Pictures </FormLabel>
+                        <RadioGroup
+                          defaultValue="NO"
+                          aria-labelledby="demo-customized-radios"
+                          name="customized-radios"
+                          className=""
+                        >
+                          <FormControlLabel
+                            value="YES"
+                            control={<BpRadio />}
+                            label="YES"
+                          />
+                          <FormControlLabel
+                            value="NO"
+                            control={<BpRadio />}
+                            label="NO"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel className="text-sm"> Evidence </FormLabel>
+                        <RadioGroup
+                          defaultValue="NO"
+                          aria-labelledby="demo-customized-radios"
+                          name="customized-radios"
+                          className=""
+                        >
+                          <FormControlLabel
+                            value="YES"
+                            control={<BpRadio />}
+                            label="YES"
+                          />
+                          <FormControlLabel
+                            value="NO"
+                            control={<BpRadio />}
+                            label="NO"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel className="text-sm">
+                          {" "}
+                          Audio Evidence{" "}
+                        </FormLabel>
+                        <RadioGroup
+                          defaultValue="NO"
+                          aria-labelledby="demo-customized-radios"
+                          name="customized-radios"
+                          className=""
+                        >
+                          <FormControlLabel
+                            value="YES"
+                            control={<BpRadio />}
+                            label="YES"
+                          />
+                          <FormControlLabel
+                            value="NO"
+                            control={<BpRadio />}
+                            label="NO"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel className="text-sm">
+                          {" "}
+                          Video Evidence{" "}
+                        </FormLabel>
+                        <RadioGroup
+                          defaultValue="NO"
+                          aria-labelledby="demo-customized-radios"
+                          name="customized-radios"
+                          className=""
+                        >
+                          <FormControlLabel
+                            value="YES"
+                            control={<BpRadio />}
+                            label="YES"
+                          />
+                          <FormControlLabel
+                            value="NO"
+                            control={<BpRadio />}
+                            label="NO"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </FormControl>
+                  </Box>
+                  <Box className=""></Box>
+                  <Box className="">
+                    <FormControl>
+                      <FormLabel id="demo-customized-radios ">
+                        {" "}
+                        Who did it?{" "}
+                      </FormLabel>
+                      {rows.map((row, index) => (
+                        <div key={index} className=" flex gap-5 m-2 ">
+                          <TextField
+                            style={{ width: "400px" }}
+                            inputProps={{
+                              style: {
+                                padding: "8px 5px",
+                              },
+                            }}
+                            name="name"
+                            value={row.name}
+                            onChange={handleInputChange(index, "name")}
+                            placeholder="Enter Name"
+                          />
+                        </div>
+                      ))}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        onClick={handleAddRow}
+                      >
+                        <path
+                          d="M10.6478 0H4.3597C1.62834 0 3.05176e-05 1.62831 3.05176e-05 4.35967V10.6403C3.05176e-05 13.3792 1.62834 15.0075 4.3597 15.0075H10.6403C13.3717 15.0075 15 13.3792 15 10.6478V4.35967C15.0075 1.62831 13.3792 0 10.6478 0ZM12.006 8.06652H8.06655V12.006C8.06655 12.3136 7.81142 12.5688 7.50377 12.5688C7.19612 12.5688 6.94099 12.3136 6.94099 12.006V8.06652H3.00153C2.69387 8.06652 2.43875 7.81139 2.43875 7.50374C2.43875 7.19609 2.69387 6.94096 3.00153 6.94096H6.94099V3.0015C6.94099 2.69384 7.19612 2.43872 7.50377 2.43872C7.81142 2.43872 8.06655 2.69384 8.06655 3.0015V6.94096H12.006C12.3137 6.94096 12.5688 7.19609 12.5688 7.50374C12.5688 7.81139 12.3137 8.06652 12.006 8.06652Z"
+                          fill="#5D8C97"
+                        />
+                      </svg>{" "}
+                    </FormControl>
+                  </Box>
+
+                  <Box className="pt-5">
+                    <FormControl>
+                      {rows.map((row, index) => (
+                        <div key={index} className=" flex gap-5 m-2 ">
+                          <TextField
+                            style={{ width: "400px" }}
+                            inputProps={{
+                              style: {
+                                padding: "8px 5px",
+                              },
+                            }}
+                            type="text"
+                            name="mobile"
+                            value={row.mobile}
+                            onChange={handleInputChange(index, "mobile")}
+                            placeholder="Enter Mobile Number"
+                          />
+                        </div>
+                      ))}
+                    </FormControl>
+                  </Box>
+                </Box>
+                <Box className="mt-4">
+                  <FormControl className="w-full">
+                    <FormLabel id="demo-customized-radios ">
+                      {" "}
+                      Detail What happened{" "}
+                    </FormLabel>
+                    <TextField
+                      inputProps={{
+                        style: {
+                          padding: "8px 5px",
+                        },
+                      }}
+                      placeholder="Please only enter detail of what happened  that you want someone handling the case to see."
+                      minRows={2}
+                    />{" "}
+                  </FormControl>
                 </Box>
               </>
             )}
@@ -417,7 +697,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
               <Button
                 className={`${
                   currentSection !== 0 ? "bg-[#5E8d97]" : "bg-#0000001A"
-                }`}
+                } mb-6`}
                 onClick={handlePrevious}
                 disabled={currentSection === 0}
                 variant="contained"
@@ -460,7 +740,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   currentSection !== totalSections - 1
                     ? "bg-[#5E8d97]"
                     : "bg-#0000001A"
-                }`}
+                } mb-6`}
                 onClick={handleNext}
                 disabled={currentSection === totalSections - 1}
                 variant="contained"
