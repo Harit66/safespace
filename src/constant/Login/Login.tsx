@@ -28,9 +28,9 @@ const Login = (props: Props) => {
     }
   }, [isAuthenticated, userType, navigate]);
 
-  const handleLogin = () => {
+  const handleLogin = (userType: string) => {
     dispatch(login());
-    dispatch(setUserType("endUser"));
+    dispatch(setUserType(userType));
   };
 
   const handleLogout = () => {
@@ -40,8 +40,15 @@ const Login = (props: Props) => {
   return (
     <Box>
       <h4>Login Page</h4>
-      <Button variant="contained" onClick={handleLogin}>
-        Log In
+      <Button variant="contained" onClick={() => handleLogin("endUser")}>
+        Log In as End User
+      </Button>
+      <Button
+        className="ml-3"
+        variant="contained"
+        onClick={() => handleLogin("adminUser")}
+      >
+        Log In as Admin User
       </Button>
       <Button className="ml-3" variant="contained" onClick={handleLogout}>
         Log Out

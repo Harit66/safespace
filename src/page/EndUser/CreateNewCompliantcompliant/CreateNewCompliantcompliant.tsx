@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -96,11 +97,11 @@ const CreateNewCompliantcompliant = (props: Props) => {
 
   const handleInputChange =
     (index: number, key: keyof Row) =>
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const updatedRows = [...rows];
-      updatedRows[index][key] = event.target.value;
-      setRows(updatedRows);
-    };
+      (event: ChangeEvent<HTMLInputElement>) => {
+        const updatedRows = [...rows];
+        updatedRows[index][key] = event.target.value;
+        setRows(updatedRows);
+      };
 
   const handleAddRow = () => {
     setRows([...rows, { name: "", mobile: "" }]);
@@ -526,12 +527,12 @@ const CreateNewCompliantcompliant = (props: Props) => {
                     </FormLabel>
                     <FormControl className="flex flex-row gap-8 mt-1 items-center justify-start">
                       <FormControl>
-                        <FormLabel className="text-sm"> Pictures </FormLabel>
+                        <FormLabel className="text-sm " > Pictures </FormLabel>
                         <RadioGroup
                           defaultValue="NO"
                           aria-labelledby="demo-customized-radios"
                           name="customized-radios"
-                          className=""
+                          className="pr-2"
                         >
                           <FormControlLabel
                             value="YES"
@@ -551,7 +552,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                           defaultValue="NO"
                           aria-labelledby="demo-customized-radios"
                           name="customized-radios"
-                          className=""
+                          className="pr-2"
                         >
                           <FormControlLabel
                             value="YES"
@@ -574,7 +575,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                           defaultValue="NO"
                           aria-labelledby="demo-customized-radios"
                           name="customized-radios"
-                          className=""
+                          className="pr-2"
                         >
                           <FormControlLabel
                             value="YES"
@@ -597,7 +598,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                           defaultValue="NO"
                           aria-labelledby="demo-customized-radios"
                           name="customized-radios"
-                          className=""
+                          className="pr-2"
                         >
                           <FormControlLabel
                             value="YES"
@@ -693,11 +694,99 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 </Box>
               </>
             )}
+
+            {currentSection === 3 && (
+              <>
+                <Typography className="text-[#5D586C]  font-semibold text-2xl">
+                  Submission{" "}
+                </Typography>
+
+                <FormControl>
+                  <FormLabel id="demo-customized-radios " className="mt-5">
+                    {" "}
+                    How you want to submit this report
+                  </FormLabel>
+                  <RadioGroup
+                    aria-labelledby="demo-customized-radios"
+                    name="customized-radios"
+                    className="pt-1"
+                    row
+                  >
+                    <FormControlLabel
+                      value="Anonymous"
+                      control={<BpRadio />}
+                      label="anonymous"
+                      className="pr-4"
+                    />
+                    <FormControlLabel
+                      value="Using my Username"
+                      control={<BpRadio />}
+                      label="Using my Username"
+                    />
+
+                  </RadioGroup>
+                </FormControl>
+                <Box className="">
+                  <Box className="pt-6">
+                    <FormControl>
+                      <FormLabel id="demo-customized-radios ">
+                        Send a copy to the following individuals
+                      </FormLabel>
+                      {rows.map((row, index) => (
+                        <div key={index} className="flex gap-5 m-2">
+                          <TextField
+                            style={{ width: "400px" }}
+                            inputProps={{
+                              style: {
+                                padding: "8px 5px",
+                              },
+                            }}
+                            name="name"
+                            value={row.name}
+                            onChange={handleInputChange(index, "name")}
+                            placeholder="Enter Name"
+                          />
+                          <TextField
+                            style={{ width: "400px" }}
+                            inputProps={{
+                              style: {
+                                padding: "8px 5px",
+                              },
+                            }}
+                            type="text"
+                            name="mobile"
+                            value={row.mobile}
+                            onChange={handleInputChange(index, "mobile")}
+                            placeholder="Enter Mobile Number"
+                          />
+                        </div>
+                      ))}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        onClick={handleAddRow}
+                      >
+                        <path
+                          d="M10.6478 0H4.3597C1.62834 0 3.05176e-05 1.62831 3.05176e-05 4.35967V10.6403C3.05176e-05 13.3792 1.62834 15.0075 4.3597 15.0075H10.6403C13.3717 15.0075 15 13.3792 15 10.6478V4.35967C15.0075 1.62831 13.3792 0 10.6478 0ZM12.006 8.06652H8.06655V12.006C8.06655 12.3136 7.81142 12.5688 7.50377 12.5688C7.19612 12.5688 6.94099 12.3136 6.94099 12.006V8.06652H3.00153C2.69387 8.06652 2.43875 7.81139 2.43875 7.50374C2.43875 7.19609 2.69387 6.94096 3.00153 6.94096H6.94099V3.0015C6.94099 2.69384 7.19612 2.43872 7.50377 2.43872C7.81142 2.43872 8.06655 2.69384 8.06655 3.0015V6.94096H12.006C12.3137 6.94096 12.5688 7.19609 12.5688 7.50374C12.5688 7.81139 12.3137 8.06652 12.006 8.06652Z"
+                          fill="#5D8C97"
+                        />
+                      </svg>{" "}
+                    </FormControl>
+                  </Box>
+                </Box>
+                            
+              </>
+
+            )}
+
+
             <Box className="flex justify-between mt-5 ">
               <Button
-                className={`${
-                  currentSection !== 0 ? "bg-[#5E8d97]" : "bg-#0000001A"
-                } mb-6`}
+                className={`${currentSection !== 0 ? "bg-[#5E8d97]" : "bg-#0000001A"
+                  } mb-6`}
                 onClick={handlePrevious}
                 disabled={currentSection === 0}
                 variant="contained"
@@ -736,11 +825,10 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 Previous
               </Button>
               <Button
-                className={`w-24 h-10 rounded-md text-white ${
-                  currentSection !== totalSections - 1
-                    ? "bg-[#5E8d97]"
-                    : "bg-#0000001A"
-                } mb-6`}
+                className={`w-24 h-10 rounded-md text-white ${currentSection !== totalSections - 1
+                  ? "bg-[#5E8d97]"
+                  : "bg-#0000001A"
+                  } mb-6`}
                 onClick={handleNext}
                 disabled={currentSection === totalSections - 1}
                 variant="contained"

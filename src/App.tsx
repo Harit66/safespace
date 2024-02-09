@@ -33,6 +33,7 @@ function App() {
 
             <Route
               element={
+                // Navigation bar and route protection based on user authentication
                 <>
                   <NavBar userType="adminUser" />
                   <ProtectedRoute
@@ -42,22 +43,35 @@ function App() {
                 </>
               }
             >
+              {/* Route for the admin dashboard */}
+              <Route
+                path="/admin/mainpage"
+                element={
+                  <Box className="flex flex-col w-full h-screen p-4">
+                    <Header userType="adminUser" />
+                    <EndUserMainPage />
+                    <Footer userType="adminUser" />
+                  </Box>
+                }
+              />
+
               <Route
                 path="/admin/dashboard"
                 element={
                   <Box className="flex flex-col w-full h-screen p-4">
                     <Header userType="adminUser" />
-                    <AdminMainPage />
+                    <CreateNewCompliantcompliant />
                     <Footer userType="adminUser" />
                   </Box>
                 }
               />
             </Route>
-
+            {/* Route for the admin dashboard */}
             <Route
               element={
                 <>
                   <NavBar userType="endUser" />
+                  
                   <ProtectedRoute isAuthenticated={isAuthenticated} />
                 </>
               }
