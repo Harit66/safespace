@@ -14,9 +14,21 @@ type Props = {
 const NavBar = ({ userType }: Props) => {
   const endUserMenus = [
     { name: "Dashboard", link: "/enduser/dashboard", icon: DashBoard },
-    { name: "Report Details", link: "/enduser/report-details", icon: ReportDetails },
-    { name: "Send to subpage", link: "/enduser/send-to-subpage", icon: sendToSubject },
-    { name: "See other complaints", link: "/enduser/see-other-complaints", icon: SeeOtherComplaints },
+    {
+      name: "Report Details",
+      link: "/enduser/reportdetails",
+      icon: ReportDetails,
+    },
+    {
+      name: "Send to subpage",
+      link: "/enduser/send-to-subpage",
+      icon: sendToSubject,
+    },
+    {
+      name: "See other complaints",
+      link: "/enduser/see-other-complaints",
+      icon: SeeOtherComplaints,
+    },
   ];
 
   const adminMenus = [
@@ -37,7 +49,7 @@ const NavBar = ({ userType }: Props) => {
     }
   }, [isSmallScrren, setOpen]);
 
-  const menus = userType === 'endUser' ? endUserMenus : adminMenus;
+  const menus = userType === "endUser" ? endUserMenus : adminMenus;
 
   return (
     <section className="flex gap-6 ">

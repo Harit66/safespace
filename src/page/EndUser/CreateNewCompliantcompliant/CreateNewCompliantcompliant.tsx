@@ -9,7 +9,6 @@ import {
   RadioGroup,
   RadioProps,
   TextField,
-  TextareaAutosize,
   Typography,
 } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
@@ -80,6 +79,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
 
   const [currentSection, setCurrentSection] = useState<number>(0);
   const [rows, setRows] = useState<Row[]>([{ name: "", mobile: "" }]);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const totalSections = 4;
 
@@ -87,6 +87,9 @@ const CreateNewCompliantcompliant = (props: Props) => {
     if (currentSection < totalSections - 1) {
       setCurrentSection(currentSection + 1);
     }
+  };
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked);
   };
 
   const handlePrevious = () => {
@@ -97,11 +100,11 @@ const CreateNewCompliantcompliant = (props: Props) => {
 
   const handleInputChange =
     (index: number, key: keyof Row) =>
-      (event: ChangeEvent<HTMLInputElement>) => {
-        const updatedRows = [...rows];
-        updatedRows[index][key] = event.target.value;
-        setRows(updatedRows);
-      };
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const updatedRows = [...rows];
+      updatedRows[index][key] = event.target.value;
+      setRows(updatedRows);
+    };
 
   const handleAddRow = () => {
     setRows([...rows, { name: "", mobile: "" }]);
@@ -527,7 +530,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                     </FormLabel>
                     <FormControl className="flex flex-row gap-8 mt-1 items-center justify-start">
                       <FormControl>
-                        <FormLabel className="text-sm " > Pictures </FormLabel>
+                        <FormLabel className="text-sm "> Pictures </FormLabel>
                         <RadioGroup
                           defaultValue="NO"
                           aria-labelledby="demo-customized-radios"
@@ -723,7 +726,6 @@ const CreateNewCompliantcompliant = (props: Props) => {
                       control={<BpRadio />}
                       label="Using my Username"
                     />
-
                   </RadioGroup>
                 </FormControl>
                 <Box className="">
@@ -777,16 +779,50 @@ const CreateNewCompliantcompliant = (props: Props) => {
                     </FormControl>
                   </Box>
                 </Box>
-                            
+                <Box className="rounded-xl  border border-gray-300 bg-white px-10 pt-3 pb-6 my-6">
+                  <Typography className="text-[#00000]  text-xl font-semibold 	">
+                    Disclaimer{" "}
+                  </Typography>
+                  <Typography className="text-[#4B465C]  text-sm font-medium mt-1	">
+                    The facts and statements are true to the best of my
+                    knowledge. "The Website assumes no responsibility or
+                    liability for any errors or omissions in the content of this
+                    site" "Under no circumstance shall we have any liability to
+                    you for any loss or damage of any kind incurred as a result
+                    of the use of the site or reliance on any information
+                    provided on the site" "The information provided on this
+                    website is intended for general informational purposes only"
+                    "In no event will we be liable for any loss or damage
+                    including without limitation, indirect or consequential loss
+                    or damage, or any loss or damage whatsoever arising from
+                    loss of data or profits arising out of, or in connection
+                    with, the use of this website" "Use of this website does not
+                    in any manner constitute an attorney-client relationship
+                    between the firm and the user" "Disclaims liability for any
+                    inaccurate statement on their website" "The product is
+                    provided “as-is” without any express or implied warranty of
+                    any kind" "The reader would be reminded to use the
+                    instructions at their own risk"{" "}
+                  </Typography>
+                </Box>
+                <Box className="flex  items-center">
+                  <Checkbox
+                    style={{ color: "#5D8C97" }}
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                  />{" "}
+                  <Typography className="text-[#4B465C]  font-medium text-base ">
+                    Are you willing to cooperate anonymously?{" "}
+                  </Typography>
+                </Box>
               </>
-
             )}
-
 
             <Box className="flex justify-between mt-5 ">
               <Button
-                className={`${currentSection !== 0 ? "bg-[#5E8d97]" : "bg-#0000001A"
-                  } mb-6`}
+                className={`${
+                  currentSection !== 0 ? "bg-[#5E8d97]" : "bg-#0000001A"
+                } mb-6`}
                 onClick={handlePrevious}
                 disabled={currentSection === 0}
                 variant="contained"
@@ -825,10 +861,11 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 Previous
               </Button>
               <Button
-                className={`w-24 h-10 rounded-md text-white ${currentSection !== totalSections - 1
-                  ? "bg-[#5E8d97]"
-                  : "bg-#0000001A"
-                  } mb-6`}
+                className={`w-24 h-10 rounded-md text-white ${
+                  currentSection !== totalSections - 1
+                    ? "bg-[#5E8d97]"
+                    : "bg-#0000001A"
+                } mb-6`}
                 onClick={handleNext}
                 disabled={currentSection === totalSections - 1}
                 variant="contained"

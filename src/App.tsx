@@ -1,16 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Outlet,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { RootState } from "./Redux/App/store";
 import EndUserMainPage from "./page/EndUser/EndUserMainPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Login from "./constant/Login/Login";
-import AdminMainPage from "./page/Admin/AdminMainPage";
 import NavBar from "./constant/NavBar/NavBar";
 import PageNotFound from "./constant/PageNotFound/PageNotFound";
 import { Box } from "@mui/material";
@@ -18,6 +12,7 @@ import Header from "./constant/Header/Header";
 import Footer from "./constant/Footer/Footer";
 import CreateNewCompliantcompliant from "./page/EndUser/CreateNewCompliantcompliant/CreateNewCompliantcompliant";
 import CompanyProfile from "./page/Admin/companyprofile/companyprofile";
+import ReportDetailsMainPage from "./page/EndUser/ReportDetailsMainPage";
 
 function App() {
   const isAuthenticated = useSelector(
@@ -75,7 +70,6 @@ function App() {
                   </Box>
                 }
               />
-
             </Route>
             {/* Route for the admin dashboard */}
             <Route
@@ -98,11 +92,21 @@ function App() {
                 }
               />
               <Route
-                path="/enduser/dashboard/CreateCompliant"
+                path="/enduser/dashboard/createcompliant"
                 element={
                   <Box className="flex flex-col w-full h-screen p-4">
                     <Header userType="endUser" />
                     <CreateNewCompliantcompliant />
+                    <Footer userType="endUser" />
+                  </Box>
+                }
+              />
+              <Route
+                path="/enduser/reportdetails"
+                element={
+                  <Box className="flex flex-col w-full h-screen p-4">
+                    <Header userType="endUser" />
+                    <ReportDetailsMainPage />
                     <Footer userType="endUser" />
                   </Box>
                 }
