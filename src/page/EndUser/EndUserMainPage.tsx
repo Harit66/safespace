@@ -7,7 +7,7 @@ type Props = {};
 const EndUserMainPage = (props: Props) => {
   const navigate = useNavigate();
   const handleNEwcompliant = () => {
-    navigate("/enduser/dashboard/CreateCompliant");
+    navigate("/enduser/dashboard/createcompliant");
   };
 
   return (
@@ -21,7 +21,7 @@ const EndUserMainPage = (props: Props) => {
           sx={{ height: "calc(100vh - 140px)" }}
         >
           <Box className="w-80 h-36 rounded-md flex items-start  justify-center align-middle gap-4 flex-col m-3 shadow-md px-2">
-            <Typography className="text-[#4B465C] font-semibold  font-lg mb-3 ">
+            <Typography className="text-[#4B465C] font-semibold  text-lg mb-3 ">
               Create a new compliant{" "}
             </Typography>
             <Box
