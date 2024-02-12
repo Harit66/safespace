@@ -11,7 +11,7 @@ const Layout = ({ children }: Props) => {
     <>
       <NavBar userType="endUser" />
       {children}
-      <Footer userType="endUSer" />
+      <Footer userType="endUser" />
     </>
   );
 };

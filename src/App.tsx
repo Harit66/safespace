@@ -17,6 +17,7 @@ import { Box } from "@mui/material";
 import Header from "./constant/Header/Header";
 import Footer from "./constant/Footer/Footer";
 import CreateNewCompliantcompliant from "./page/EndUser/CreateNewCompliantcompliant/CreateNewCompliantcompliant";
+import CompanyProfile from "./page/Admin/companyprofile/companyprofile";
 
 function App() {
   const isAuthenticated = useSelector(
@@ -35,10 +36,10 @@ function App() {
               element={
                 // Navigation bar and route protection based on user authentication
                 <>
-                  <NavBar userType="adminUser" />
+                  <NavBar userType="admin" />
                   <ProtectedRoute
                     isAuthenticated={isAuthenticated}
-                    adminRoute={userType === "adminUser" ? true : false}
+                    adminRoute={userType === "admin" ? true : false}
                   />
                 </>
               }
@@ -59,19 +60,29 @@ function App() {
                 path="/admin/dashboard"
                 element={
                   <Box className="flex flex-col w-full h-screen p-4">
+                    <CompanyProfile />
+                  </Box>
+                }
+              />
+
+              <Route
+                path="/admin/companyprofile"
+                element={
+                  <Box className="flex flex-col w-full h-screen p-4">
                     <Header userType="adminUser" />
-                    <CreateNewCompliantcompliant />
+                    <CompanyProfile />
                     <Footer userType="adminUser" />
                   </Box>
                 }
               />
+
             </Route>
             {/* Route for the admin dashboard */}
             <Route
               element={
                 <>
                   <NavBar userType="endUser" />
-                  
+
                   <ProtectedRoute isAuthenticated={isAuthenticated} />
                 </>
               }

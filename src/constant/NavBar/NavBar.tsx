@@ -1,4 +1,4 @@
-import { Box, TextField, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as DashBoard } from "../../assets/icons/Dashboard.svg";
@@ -8,23 +8,22 @@ import { ReactComponent as sendToSubject } from "../../assets/icons/sendToSubjec
 import { ReactComponent as SeeOtherComplaints } from "../../assets/icons/SeeOtherComp.svg";
 
 type Props = {
-  userType: string;
+  userType: "endUser" | "admin";
 };
 
 const NavBar = ({ userType }: Props) => {
-  const menus = [
+  const endUserMenus = [
     { name: "Dashboard", link: "/enduser/dashboard", icon: DashBoard },
-    { name: "Report Details", link: "/enduser/dashboard", icon: ReportDetails },
-    {
-      name: "Send to subpage",
-      link: "/enduser/dashboard",
-      icon: sendToSubject,
-    },
-    {
-      name: "See other complaints",
-      link: "/enduser/dashboard",
-      icon: SeeOtherComplaints,
-    },
+    { name: "Report Details", link: "/enduser/report-details", icon: ReportDetails },
+    { name: "Send to subpage", link: "/enduser/send-to-subpage", icon: sendToSubject },
+    { name: "See other complaints", link: "/enduser/see-other-complaints", icon: SeeOtherComplaints },
+  ];
+
+  const adminMenus = [
+    { name: "Dashboard", link: "/admin/dashboard", icon: DashBoard },
+    { name: "Case", link: "/admin/case", icon: ReportDetails },
+    { name: "Member", link: "/admin/member", icon: sendToSubject },
+    { name: "Settings", link: "/admin/settings", icon: SeeOtherComplaints },
   ];
 
   const [open, setOpen] = useState(true);
@@ -37,6 +36,8 @@ const NavBar = ({ userType }: Props) => {
       setOpen(true);
     }
   }, [isSmallScrren, setOpen]);
+
+  const menus = userType === 'endUser' ? endUserMenus : adminMenus;
 
   return (
     <section className="flex gap-6 ">
