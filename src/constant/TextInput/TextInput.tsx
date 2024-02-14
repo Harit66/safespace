@@ -104,7 +104,7 @@ const TextInput = <TFieldValues extends FieldValues>({
           )}
         </button>
       )}
-      {error !== "" ? <p>{error}</p> : null}
+      {error !== "" ? <p style={{ color: "red" }}>{error}</p> : null}
     </div>
   );
 };
