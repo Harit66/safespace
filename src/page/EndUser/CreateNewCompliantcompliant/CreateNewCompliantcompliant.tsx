@@ -23,7 +23,7 @@ import { styled } from "@mui/system";
 
 type Props = {};
 
-type FormType = {
+type FormTypeValide = {
   Country: string;
   State: string;
   City: string;
@@ -31,6 +31,24 @@ type FormType = {
   Department: string;
   Address: string;
   whenHappened: string;
+};
+type FormType = {
+  reportAbout: string;
+  timeHappened: string;
+  whereIthappened: string;
+  placeName: string;
+  reportFor: string;
+  isAnyWitness: string;
+  isConfidedWith: string;
+  PictureDocumentation: string;
+  evidenceDocumentation: string;
+  audioEvidenceDocumentation: string;
+  videoEvidenceDocumentation: string;
+  detail: string;
+  wantToSubmit: string;
+  isChecked: boolean;
+  whoDid: Row[];
+  individuals: Row[];
 };
 
 interface Row {
@@ -78,9 +96,34 @@ const BpCheckedIcon = styled(BpIcon)({
 
 const CreateNewCompliantcompliant = (props: Props) => {
   const [currentSection, setCurrentSection] = useState<number>(0);
-  const [rows, setRows] = useState<Row[]>([{ name: "", mobile: "" }]);
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormType>({
+    reportAbout: "Sexual harassment",
+    timeHappened: "One",
+    whereIthappened: "Place of business",
+    placeName: "",
+    reportFor: "Self",
+    isAnyWitness: "NO",
+    isConfidedWith: "NO",
+    PictureDocumentation: "NO",
+    evidenceDocumentation: "NO",
+    audioEvidenceDocumentation: "NO",
+    videoEvidenceDocumentation: "NO",
+    detail: "",
+    wantToSubmit: "Anonymous",
+    isChecked: false,
+    whoDid: [{ name: "", mobile: "" }],
+    individuals: [{ name: "", mobile: "" }],
+  });
   const totalSections = 5;
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const validationSchema = yup.object().shape({
     Country: yup.string().required("Country is required"),
@@ -99,12 +142,10 @@ const CreateNewCompliantcompliant = (props: Props) => {
     trigger,
     watch,
     formState: { errors },
-  } = useForm<FormType>({
+  } = useForm<FormTypeValide>({
     resolver: yupResolver(validationSchema),
   });
-
   const data = watch();
-  console.log(data);
   const handleNext = async () => {
     try {
       const isCountryValid = await trigger("Country");
@@ -136,26 +177,54 @@ const CreateNewCompliantcompliant = (props: Props) => {
     }
   };
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked);
-  };
-
   const handlePrevious = () => {
     if (currentSection > 0) {
       setCurrentSection(currentSection - 1);
     }
   };
 
-  const handleInputChange =
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked;
+    setFormData((prevData) => ({
+      ...prevData,
+      isChecked,
+    }));
+  };
+
+  const handleWhoDidChange =
     (index: number, key: keyof Row) =>
     (event: ChangeEvent<HTMLInputElement>) => {
-      const updatedRows = [...rows];
+      const updatedRows = [...formData.whoDid];
       updatedRows[index][key] = event.target.value;
-      setRows(updatedRows);
+      setFormData((prevData) => ({
+        ...prevData,
+        whoDid: updatedRows,
+      }));
     };
 
-  const handleAddRow = () => {
-    setRows([...rows, { name: "", mobile: "" }]);
+  const handleindividualsChange =
+    (index: number, key: keyof Row) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const updatedRows = [...formData.individuals];
+      updatedRows[index][key] = event.target.value;
+      setFormData((prevData) => ({
+        ...prevData,
+        individuals: updatedRows,
+      }));
+    };
+
+  const handleWhoDidAddRow = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      whoDid: [...prevData.whoDid, { name: "", mobile: "" }],
+    }));
+  };
+
+  const handleindividualsAddRow = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      individuals: [...prevData.individuals, { name: "", mobile: "" }],
+    }));
   };
 
   function BpRadio(props: RadioProps) {
@@ -170,6 +239,8 @@ const CreateNewCompliantcompliant = (props: Props) => {
     );
   }
 
+  console.log(formData, "formData");
+  console.log(data, "datadata");
   return (
     <>
       <Box className="w-full relative my-6 ">
@@ -183,10 +254,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
           <Box className="w-1/3  border-r-2  border-solid border-[#DBDADE] pl-3 p-6 flex align-top flex-row gap-8">
             <CustomSteps currentStep={currentSection} steps={4} />
             <Box className="flex flex-col justify-start items-start gap-5">
-              <Box
-                className="flex flex-row gap-4"
-                onClick={() => setCurrentSection(0)}
-              >
+              <Box className="flex flex-row gap-4">
                 {" "}
                 <Box className="rounded-md w-10 h-10 bg-[#5E8D97] justify-center items-center flex ">
                   {" "}
@@ -201,10 +269,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   </Typography>
                 </Box>
               </Box>
-              <Box
-                className="flex flex-row gap-4"
-                onClick={() => setCurrentSection(1)}
-              >
+              <Box className="flex flex-row gap-4">
                 {" "}
                 <Box className="rounded-md w-10 h-10 bg-[#5E8D97] justify-center items-center flex ">
                   {" "}
@@ -219,10 +284,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   </Typography>
                 </Box>
               </Box>
-              <Box
-                className="flex flex-row gap-4"
-                onClick={() => setCurrentSection(2)}
-              >
+              <Box className="flex flex-row gap-4">
                 {" "}
                 <Box className="rounded-md w-10 h-10 bg-[#5E8D97] justify-center items-center flex ">
                   {" "}
@@ -237,10 +299,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   </Typography>
                 </Box>
               </Box>
-              <Box
-                className="flex flex-row gap-4"
-                onClick={() => setCurrentSection(3)}
-              >
+              <Box className="flex flex-row gap-4">
                 {" "}
                 <Box className="rounded-md w-10 h-10 bg-[#5E8D97] justify-center items-center flex ">
                   {" "}
@@ -354,14 +413,14 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 </Typography>
 
                 <FormControl>
-                  <FormLabel id="demo-customized-radios " className="mt-5">
+                  <FormLabel className="mt-5 text-[#5D586C] ">
                     {" "}
                     What is this report about?
                   </FormLabel>
                   <RadioGroup
-                    defaultValue="Sexual harassment"
-                    aria-labelledby="demo-customized-radios"
-                    name="customized-radios"
+                    value={formData.reportAbout}
+                    onChange={handleChange}
+                    name="reportAbout"
                   >
                     <FormControlLabel
                       value="Sexual harassment"
@@ -417,20 +476,22 @@ const CreateNewCompliantcompliant = (props: Props) => {
                       name="whenHappened"
                       type="text"
                       placeholder=""
+                      asterisk={true}
                     />
                   </Box>
                   <Box className="">
                     <FormControl>
-                      <FormLabel id="demo-customized-radios ">
+                      <FormLabel className="text-[#5D586C] ">
                         {" "}
                         How many times it happened{" "}
                       </FormLabel>
                       <RadioGroup
                         defaultValue="One"
-                        aria-labelledby="demo-customized-radios"
-                        name="customized-radios"
+                        name="timeHappened"
                         className=""
                         row
+                        value={formData.timeHappened}
+                        onChange={handleChange}
                       >
                         <FormControlLabel
                           value="One"
@@ -447,15 +508,16 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   </Box>
                   <Box className="">
                     <FormControl>
-                      <FormLabel id="demo-customized-radios ">
+                      <FormLabel className="text-[#5D586C] ">
                         {" "}
                         Where it happened{" "}
                       </FormLabel>
                       <RadioGroup
                         defaultValue="Place of business"
-                        aria-labelledby="demo-customized-radios"
-                        name="customized-radios"
+                        name="whereIthappened"
                         className=""
+                        value={formData.whereIthappened}
+                        onChange={handleChange}
                       >
                         <FormControlLabel
                           value="Place of business"
@@ -475,11 +537,15 @@ const CreateNewCompliantcompliant = (props: Props) => {
                           />
                           <TextField
                             className="mt-1"
+                            value={formData.placeName}
+                            name="placeName"
+                            onChange={handleChange}
                             inputProps={{
                               style: {
                                 padding: 0,
                               },
                             }}
+                            disabled={formData.whereIthappened !== "Other"}
                           />{" "}
                         </Box>
                       </RadioGroup>
@@ -487,16 +553,16 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   </Box>
                   <Box className="">
                     <FormControl>
-                      <FormLabel id="demo-customized-radios ">
+                      <FormLabel className="text-[#5D586C] ">
                         {" "}
                         Report for{" "}
                       </FormLabel>
                       <RadioGroup
                         defaultValue="Self"
-                        aria-labelledby="demo-customized-radios"
-                        name="customized-radios"
+                        name="reportFor"
                         className=""
-                        row
+                        value={formData.reportFor}
+                        onChange={handleChange}
                       >
                         <FormControlLabel
                           value="Self"
@@ -513,16 +579,16 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   </Box>
                   <Box className="">
                     <FormControl>
-                      <FormLabel id="demo-customized-radios ">
+                      <FormLabel className="text-[#5D586C] ">
                         {" "}
                         Any Witnesses ?{" "}
                       </FormLabel>
                       <RadioGroup
                         defaultValue="NO"
-                        aria-labelledby="demo-customized-radios"
-                        name="customized-radios"
+                        name="isAnyWitness"
                         className=""
-                        row
+                        value={formData.isAnyWitness}
+                        onChange={handleChange}
                       >
                         <FormControlLabel
                           value="YES"
@@ -539,16 +605,16 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   </Box>
                   <Box className="">
                     <FormControl>
-                      <FormLabel id="demo-customized-radios ">
+                      <FormLabel className="text-[#5D586C] ">
                         {" "}
                         Have you confided with anyone about this case?{" "}
                       </FormLabel>
                       <RadioGroup
                         defaultValue="NO"
-                        aria-labelledby="demo-customized-radios"
-                        name="customized-radios"
+                        name="isConfidedWith"
                         className=""
-                        row
+                        value={formData.isConfidedWith}
+                        onChange={handleChange}
                       >
                         <FormControlLabel
                           value="YES"
@@ -564,18 +630,22 @@ const CreateNewCompliantcompliant = (props: Props) => {
                     </FormControl>
                   </Box>
                   <Box className="">
-                    <FormLabel id="demo-customized-radios ">
+                    <FormLabel className="text-[#5D586C] ">
                       {" "}
                       Documentation if any{" "}
                     </FormLabel>
                     <FormControl className="flex flex-row gap-8 mt-1 items-center justify-start">
                       <FormControl>
-                        <FormLabel className="text-sm "> Pictures </FormLabel>
+                        <FormLabel className="text-sm text-[#5D586C] ">
+                          {" "}
+                          Pictures{" "}
+                        </FormLabel>
                         <RadioGroup
                           defaultValue="NO"
-                          aria-labelledby="demo-customized-radios"
-                          name="customized-radios"
+                          name="PictureDocumentation"
                           className="pr-2"
+                          value={formData.PictureDocumentation}
+                          onChange={handleChange}
                         >
                           <FormControlLabel
                             value="YES"
@@ -590,12 +660,16 @@ const CreateNewCompliantcompliant = (props: Props) => {
                         </RadioGroup>
                       </FormControl>
                       <FormControl>
-                        <FormLabel className="text-sm"> Evidence </FormLabel>
+                        <FormLabel className="text-sm text-[#5D586C] ">
+                          {" "}
+                          Evidence{" "}
+                        </FormLabel>
                         <RadioGroup
                           defaultValue="NO"
-                          aria-labelledby="demo-customized-radios"
-                          name="customized-radios"
+                          name="evidenceDocumentation"
                           className="pr-2"
+                          value={formData.evidenceDocumentation}
+                          onChange={handleChange}
                         >
                           <FormControlLabel
                             value="YES"
@@ -610,15 +684,16 @@ const CreateNewCompliantcompliant = (props: Props) => {
                         </RadioGroup>
                       </FormControl>
                       <FormControl>
-                        <FormLabel className="text-sm">
+                        <FormLabel className="text-sm w-max text-[#5D586C] ">
                           {" "}
                           Audio Evidence{" "}
                         </FormLabel>
                         <RadioGroup
                           defaultValue="NO"
-                          aria-labelledby="demo-customized-radios"
-                          name="customized-radios"
+                          name="audioEvidenceDocumentation"
                           className="pr-2"
+                          value={formData.audioEvidenceDocumentation}
+                          onChange={handleChange}
                         >
                           <FormControlLabel
                             value="YES"
@@ -633,15 +708,16 @@ const CreateNewCompliantcompliant = (props: Props) => {
                         </RadioGroup>
                       </FormControl>
                       <FormControl>
-                        <FormLabel className="text-sm">
+                        <FormLabel className="text-sm w-max text-[#5D586C] ">
                           {" "}
                           Video Evidence{" "}
                         </FormLabel>
                         <RadioGroup
                           defaultValue="NO"
-                          aria-labelledby="demo-customized-radios"
-                          name="customized-radios"
+                          name="videoEvidenceDocumentation"
                           className="pr-2"
+                          value={formData.videoEvidenceDocumentation}
+                          onChange={handleChange}
                         >
                           <FormControlLabel
                             value="YES"
@@ -660,14 +736,14 @@ const CreateNewCompliantcompliant = (props: Props) => {
                   <Box className=""></Box>
                   <Box className="">
                     <FormControl>
-                      <FormLabel id="demo-customized-radios ">
+                      <FormLabel className="text-[#5D586C] ">
                         {" "}
                         Who did it?{" "}
                       </FormLabel>
-                      {rows.map((row, index) => (
+                      {formData?.whoDid.map((row, index) => (
                         <div key={index} className=" flex gap-5 m-2 ">
                           <TextField
-                            style={{ width: "400px" }}
+                            className="w-full md:w-80"
                             inputProps={{
                               style: {
                                 padding: "8px 5px",
@@ -675,7 +751,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                             }}
                             name="name"
                             value={row.name}
-                            onChange={handleInputChange(index, "name")}
+                            onChange={handleWhoDidChange(index, "name")}
                             placeholder="Enter Name"
                           />
                         </div>
@@ -686,7 +762,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                         height="15"
                         viewBox="0 0 15 15"
                         fill="none"
-                        onClick={handleAddRow}
+                        onClick={handleWhoDidAddRow}
                       >
                         <path
                           d="M10.6478 0H4.3597C1.62834 0 3.05176e-05 1.62831 3.05176e-05 4.35967V10.6403C3.05176e-05 13.3792 1.62834 15.0075 4.3597 15.0075H10.6403C13.3717 15.0075 15 13.3792 15 10.6478V4.35967C15.0075 1.62831 13.3792 0 10.6478 0ZM12.006 8.06652H8.06655V12.006C8.06655 12.3136 7.81142 12.5688 7.50377 12.5688C7.19612 12.5688 6.94099 12.3136 6.94099 12.006V8.06652H3.00153C2.69387 8.06652 2.43875 7.81139 2.43875 7.50374C2.43875 7.19609 2.69387 6.94096 3.00153 6.94096H6.94099V3.0015C6.94099 2.69384 7.19612 2.43872 7.50377 2.43872C7.81142 2.43872 8.06655 2.69384 8.06655 3.0015V6.94096H12.006C12.3137 6.94096 12.5688 7.19609 12.5688 7.50374C12.5688 7.81139 12.3137 8.06652 12.006 8.06652Z"
@@ -698,10 +774,10 @@ const CreateNewCompliantcompliant = (props: Props) => {
 
                   <Box className="pt-5">
                     <FormControl>
-                      {rows.map((row, index) => (
+                      {formData?.whoDid.map((row, index) => (
                         <div key={index} className=" flex gap-5 m-2 ">
                           <TextField
-                            style={{ width: "400px" }}
+                            className="w-full md:w-80"
                             inputProps={{
                               style: {
                                 padding: "8px 5px",
@@ -710,7 +786,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                             type="text"
                             name="mobile"
                             value={row.mobile}
-                            onChange={handleInputChange(index, "mobile")}
+                            onChange={handleWhoDidChange(index, "mobile")}
                             placeholder="Enter Mobile Number"
                           />
                         </div>
@@ -720,7 +796,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 </Box>
                 <Box className="mt-4">
                   <FormControl className="w-full">
-                    <FormLabel id="demo-customized-radios ">
+                    <FormLabel className="text-[#5D586C] ">
                       {" "}
                       Detail What happened{" "}
                     </FormLabel>
@@ -730,9 +806,12 @@ const CreateNewCompliantcompliant = (props: Props) => {
                           padding: "8px 5px",
                         },
                       }}
-                      placeholder="Please only enter detail of what happened  that you want someone handling the case to see."
+                      name="detail"
+                      placeholder="Please only enter detail of what happened that you want someone handling the case to see."
                       minRows={2}
-                    />{" "}
+                      value={formData.detail}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                 </Box>
               </>
@@ -745,15 +824,17 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 </Typography>
 
                 <FormControl>
-                  <FormLabel id="demo-customized-radios " className="mt-5">
+                  <FormLabel className="mt-5 text-[#5D586C] ">
                     {" "}
                     How you want to submit this report
                   </FormLabel>
                   <RadioGroup
-                    aria-labelledby="demo-customized-radios"
-                    name="customized-radios"
+                    defaultValue="Anonymous"
+                    name="wantToSubmit"
                     className="pt-1"
                     row
+                    value={formData.wantToSubmit}
+                    onChange={handleChange}
                   >
                     <FormControlLabel
                       value="Anonymous"
@@ -771,13 +852,13 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 <Box className="">
                   <Box className="pt-6">
                     <FormControl>
-                      <FormLabel id="demo-customized-radios ">
+                      <FormLabel className="text-[#5D586C] ">
                         Send a copy to the following individuals
                       </FormLabel>
-                      {rows.map((row, index) => (
+                      {formData?.individuals.map((row, index) => (
                         <div key={index} className="flex gap-5 m-2">
                           <TextField
-                            style={{ width: "400px" }}
+                            className="w-full md:w-80"
                             inputProps={{
                               style: {
                                 padding: "8px 5px",
@@ -785,11 +866,11 @@ const CreateNewCompliantcompliant = (props: Props) => {
                             }}
                             name="name"
                             value={row.name}
-                            onChange={handleInputChange(index, "name")}
+                            onChange={handleindividualsChange(index, "name")}
                             placeholder="Enter Name"
                           />
                           <TextField
-                            style={{ width: "400px" }}
+                            className="w-full md:w-80"
                             inputProps={{
                               style: {
                                 padding: "8px 5px",
@@ -798,7 +879,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                             type="text"
                             name="mobile"
                             value={row.mobile}
-                            onChange={handleInputChange(index, "mobile")}
+                            onChange={handleindividualsChange(index, "mobile")}
                             placeholder="Enter Mobile Number"
                           />
                         </div>
@@ -809,7 +890,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                         height="15"
                         viewBox="0 0 15 15"
                         fill="none"
-                        onClick={handleAddRow}
+                        onClick={handleindividualsAddRow}
                       >
                         <path
                           d="M10.6478 0H4.3597C1.62834 0 3.05176e-05 1.62831 3.05176e-05 4.35967V10.6403C3.05176e-05 13.3792 1.62834 15.0075 4.3597 15.0075H10.6403C13.3717 15.0075 15 13.3792 15 10.6478V4.35967C15.0075 1.62831 13.3792 0 10.6478 0ZM12.006 8.06652H8.06655V12.006C8.06655 12.3136 7.81142 12.5688 7.50377 12.5688C7.19612 12.5688 6.94099 12.3136 6.94099 12.006V8.06652H3.00153C2.69387 8.06652 2.43875 7.81139 2.43875 7.50374C2.43875 7.19609 2.69387 6.94096 3.00153 6.94096H6.94099V3.0015C6.94099 2.69384 7.19612 2.43872 7.50377 2.43872C7.81142 2.43872 8.06655 2.69384 8.06655 3.0015V6.94096H12.006C12.3137 6.94096 12.5688 7.19609 12.5688 7.50374C12.5688 7.81139 12.3137 8.06652 12.006 8.06652Z"
@@ -848,7 +929,8 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 <Box className="flex  items-center">
                   <Checkbox
                     style={{ color: "#5D8C97" }}
-                    checked={isChecked}
+                    checked={formData.isChecked}
+                    name="isChecked"
                     onChange={handleCheckboxChange}
                   />{" "}
                   <Typography className="text-[#4B465C]  font-medium text-base ">
@@ -864,16 +946,11 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 </Typography>
 
                 <FormControl>
-                  <FormLabel id="demo-customized-radios " className="mt-5">
+                  <FormLabel className="mt-5 text-[#5D586C] ">
                     {" "}
                     How you want to submit this report
                   </FormLabel>
-                  <RadioGroup
-                    aria-labelledby="demo-customized-radios"
-                    name="customized-radios"
-                    className="pt-1"
-                    row
-                  >
+                  <RadioGroup name="customized-radios" className="pt-1" row>
                     <FormControlLabel
                       value="Anonymous"
                       control={<BpRadio />}
@@ -890,10 +967,10 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 <Box className="">
                   <Box className="pt-6">
                     <FormControl>
-                      <FormLabel id="demo-customized-radios ">
+                      <FormLabel className="text-[#5D586C] ">
                         Send a copy to the following individuals
                       </FormLabel>
-                      {rows.map((row, index) => (
+                      {formData?.individuals.map((row, index) => (
                         <div key={index} className="flex gap-5 m-2">
                           <TextField
                             style={{ width: "400px" }}
@@ -904,7 +981,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                             }}
                             name="name"
                             value={row.name}
-                            onChange={handleInputChange(index, "name")}
+                            onChange={handleindividualsChange(index, "name")}
                             placeholder="Enter Name"
                           />
                           <TextField
@@ -917,7 +994,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                             type="text"
                             name="mobile"
                             value={row.mobile}
-                            onChange={handleInputChange(index, "mobile")}
+                            onChange={handleindividualsChange(index, "mobile")}
                             placeholder="Enter Mobile Number"
                           />
                         </div>
@@ -928,7 +1005,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                         height="15"
                         viewBox="0 0 15 15"
                         fill="none"
-                        onClick={handleAddRow}
+                        onClick={handleindividualsAddRow}
                       >
                         <path
                           d="M10.6478 0H4.3597C1.62834 0 3.05176e-05 1.62831 3.05176e-05 4.35967V10.6403C3.05176e-05 13.3792 1.62834 15.0075 4.3597 15.0075H10.6403C13.3717 15.0075 15 13.3792 15 10.6478V4.35967C15.0075 1.62831 13.3792 0 10.6478 0ZM12.006 8.06652H8.06655V12.006C8.06655 12.3136 7.81142 12.5688 7.50377 12.5688C7.19612 12.5688 6.94099 12.3136 6.94099 12.006V8.06652H3.00153C2.69387 8.06652 2.43875 7.81139 2.43875 7.50374C2.43875 7.19609 2.69387 6.94096 3.00153 6.94096H6.94099V3.0015C6.94099 2.69384 7.19612 2.43872 7.50377 2.43872C7.81142 2.43872 8.06655 2.69384 8.06655 3.0015V6.94096H12.006C12.3137 6.94096 12.5688 7.19609 12.5688 7.50374C12.5688 7.81139 12.3137 8.06652 12.006 8.06652Z"
@@ -967,7 +1044,7 @@ const CreateNewCompliantcompliant = (props: Props) => {
                 <Box className="flex  items-center">
                   <Checkbox
                     style={{ color: "#5D8C97" }}
-                    checked={isChecked}
+                    checked={formData.isChecked}
                     onChange={handleCheckboxChange}
                     checkedIcon={
                       <svg
