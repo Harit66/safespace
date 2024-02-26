@@ -1,0 +1,16 @@
+<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="dots-vertical">
+<g id="Oval">
+<circle cx="10.1673" cy="10.0003" r="0.833333" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="10.1673" cy="10.0003" r="0.833333" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Oval_2">
+<circle cx="10.1673" cy="15.8333" r="0.833333" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="10.1673" cy="15.8333" r="0.833333" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Oval_3">
+<ellipse cx="10.1673" cy="4.16634" rx="0.833333" ry="0.833333" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="10.1673" cy="4.16634" rx="0.833333" ry="0.833333" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

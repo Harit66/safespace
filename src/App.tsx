@@ -13,6 +13,7 @@ import Footer from "./constant/Footer/Footer";
 import CreateNewCompliantcompliant from "./page/EndUser/CreateNewCompliantcompliant/CreateNewCompliantcompliant";
 import CompanyProfile from "./page/Admin/companyprofile/companyprofile";
 import ReportDetailsMainPage from "./page/EndUser/ReportDetailsMainPage";
+import Addtask from "./page/Admin/Task/Addtask";
 
 function App() {
   const isAuthenticated = useSelector(
@@ -55,7 +56,7 @@ function App() {
                 path="/admin/dashboard"
                 element={
                   <Box className="flex flex-col w-full h-screen p-4">
-                    <CompanyProfile />
+                    <Addtask />
                   </Box>
                 }
               />

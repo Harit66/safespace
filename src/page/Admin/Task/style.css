@@ -1,0 +1,715 @@
+.card,
+.card * {
+  box-sizing: border-box;
+}
+.card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  width: fill;
+  height: fill;
+  box-shadow: 0px 4px 18px 0px rgba(75, 70, 92, 0.10);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.form-with-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.label {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.label2 {
+  background: var(
+    --light-typography-color-heading-text,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    linear-gradient(to left, #4b465c, #4b465c)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  font-family: var(
+    --light-form-input-3-label-sm-font-family,
+    "PublicSans-Regular",
+    sans-serif
+  );
+  font-size: var(--light-form-input-3-label-sm-font-size, 13px);
+  font-weight: var(--light-form-input-3-label-sm-font-weight, 400);
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.form2 {
+  background: var(--light-solid-color-extra-card-background, #ffffff);
+  border-radius: 6px;
+  border-style: solid;
+  border-color: var(--light-solid-color-extra-divider, #dbdade);
+  border-width: 1px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.form3 {
+  border-radius: 6px;
+  padding: 7px 14px 7px 14px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.text {
+  background: var(
+    --light-typography-color-body-text,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.2)
+    ),
+    linear-gradient(to left, #4b465c, #4b465c)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  font-family: var(
+    --light-form-input-8-placeholder-default-font-family,
+    "PublicSans-Regular",
+    sans-serif
+  );
+  font-size: var(--light-form-input-8-placeholder-default-font-size, 15px);
+  line-height: var(--light-form-input-8-placeholder-default-line-height, 24px);
+  font-weight: var(--light-form-input-8-placeholder-default-font-weight, 400);
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.label3 {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 352px;
+  position: relative;
+}
+.form4 {
+  background: var(--light-solid-color-extra-card-background, #ffffff);
+  border-radius: 6px;
+  border-style: solid;
+  border-color: var(--light-solid-color-extra-divider, #dbdade);
+  border-width: 1px;
+  padding: 0px 10px 0px 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.text2 {
+  background: var(
+    --light-typography-color-placeholder-text,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.6)
+    ),
+    linear-gradient(to left, #4b465c, #4b465c)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  font-family: var(
+    --light-form-input-8-placeholder-default-font-family,
+    "PublicSans-Regular",
+    sans-serif
+  );
+  font-size: var(--light-form-input-8-placeholder-default-font-size, 15px);
+  line-height: var(--light-form-input-8-placeholder-default-line-height, 24px);
+  font-weight: var(--light-form-input-8-placeholder-default-font-weight, 400);
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.chevron-down {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  overflow: visible;
+}
+.assigned {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.chevron-down2 {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  overflow: visible;
+}
+.footer {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.avatar {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.avatar2 {
+  border-radius: 100px;
+  border-style: solid;
+  border-color: var(--light-solid-color-extra-card-background, #ffffff);
+  border-width: 2px;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.background {
+  position: absolute;
+  inset: 0;
+}
+.background2 {
+  background: var(
+    --light-solid-color-primary-primary-400,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.2)
+    ),
+    linear-gradient(to left, #7367f0, #7367f0)
+  );
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+}
+.overlay {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 100px;
+  position: absolute;
+  right: 9.72%;
+  left: 9.72%;
+  width: 80.56%;
+  bottom: 9.72%;
+  top: 9.72%;
+  height: 80.56%;
+}
+.avatar3 {
+  background: var(--avatar-avatar-10, undefined);
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+  object-fit: cover;
+}
+.background3 {
+  background: var(
+    --light-solid-color-warning-warning-400,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.2)
+    ),
+    linear-gradient(to left, #ff9f43, #ff9f43)
+  );
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+}
+.avatar4 {
+  background: var(--avatar-avatar-5, undefined);
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+  object-fit: cover;
+}
+.background4 {
+  background: var(
+    --light-solid-color-info-info-400,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.2)
+    ),
+    linear-gradient(to left, #00cfe8, #00cfe8)
+  );
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+}
+.avatar5 {
+  background: var(--avatar-avatar-2, undefined);
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+  object-fit: cover;
+}
+.choose-file {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.input-group-text {
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 38px;
+  position: relative;
+}
+.input-group-text2 {
+  background: var(--light-solid-color-extra-card-background, #ffffff);
+  border-radius: 6px 0px 0px 6px;
+  border-style: solid;
+  border-color: var(--light-solid-color-extra-divider, #dbdade);
+  border-width: 1px;
+  padding: 6px 12px 6px 12px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.text3 {
+  background: var(
+    --light-typography-color-body-text,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.2)
+    ),
+    linear-gradient(to left, #4b465c, #4b465c)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  font-family: var(
+    --light-basic-typography-paragraph-font-family,
+    "PublicSans-Regular",
+    sans-serif
+  );
+  font-size: var(--light-basic-typography-paragraph-font-size, 15px);
+  line-height: var(--light-basic-typography-paragraph-line-height, 22px);
+  font-weight: var(--light-basic-typography-paragraph-font-weight, 400);
+  position: relative;
+}
+.form5 {
+  margin: 0 0 0 -1px;
+  background: var(--light-solid-color-extra-card-background, #ffffff);
+  border-radius: 0px 6px 6px 0px;
+  border-style: solid;
+  border-color: var(--light-solid-color-extra-divider, #dbdade);
+  border-width: 1px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+}
+.text4 {
+  background: var(
+    --light-typography-color-muted-text,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    linear-gradient(to left, #4b465c, #4b465c)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  font-family: var(
+    --light-form-input-8-placeholder-default-font-family,
+    "PublicSans-Regular",
+    sans-serif
+  );
+  font-size: var(--light-form-input-8-placeholder-default-font-size, 15px);
+  line-height: var(--light-form-input-8-placeholder-default-line-height, 24px);
+  font-weight: var(--light-form-input-8-placeholder-default-font-weight, 400);
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.label4 {
+  background: var(
+    --light-typography-color-heading-text,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    linear-gradient(to left, #4b465c, #4b465c)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  font-family: var(
+    --light-form-input-3-label-sm-font-family,
+    "PublicSans-Regular",
+    sans-serif
+  );
+  font-size: var(--light-form-input-3-label-sm-font-size, 13px);
+  font-weight: var(--light-form-input-3-label-sm-font-weight, 400);
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.form-textarea {
+  background: var(--light-solid-color-extra-card-background, #ffffff);
+  border-radius: 6px;
+  border-style: solid;
+  border-color: var(--light-solid-color-extra-divider, #dbdade);
+  border-width: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 114px;
+  position: relative;
+}
+.form6 {
+  padding: 7px 10px 7px 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.deta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.text5 {
+  background: var(
+    --light-typography-color-placeholder-text,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.6)
+    ),
+    linear-gradient(to left, #4b465c, #4b465c)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  font-family: var(
+    --light-form-input-9-placeholder-sm-font-family,
+    "PublicSans-Regular",
+    sans-serif
+  );
+  font-size: var(--light-form-input-9-placeholder-sm-font-size, 13px);
+  line-height: var(--light-form-input-9-placeholder-sm-line-height, 21px);
+  font-weight: var(--light-form-input-9-placeholder-sm-font-weight, 400);
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.icons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.bold {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: translate(0px, 0px);
+  overflow: visible;
+}
+.italic {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: translate(0px, 0px);
+  overflow: visible;
+}
+.underline {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: translate(0px, 0px);
+  overflow: visible;
+}
+.list-numbers {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: translate(0px, 0px);
+  overflow: visible;
+}
+.list-check {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: translate(0px, 0px);
+  overflow: visible;
+}
+.link {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: translate(0px, 0px);
+  overflow: visible;
+}
+.photo {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: translate(0px, 0px);
+  overflow: visible;
+}
+.vector {
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  position: relative;
+  overflow: visible;
+}
+.action {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.button {
+  background: #348ca8;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: var(
+    --light-gray-gray-sm-box-shadow,
+    0px 2px 4px 0px rgba(165, 163, 174, 0.3)
+  );
+}
+.button2 {
+  padding: 10px 20px 10px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.text6 {
+  color: var(--light-solid-color-extra-white, #ffffff);
+  text-align: left;
+  font-family: var(
+    --light-button-2-button-default-font-family,
+    "PublicSans-Medium",
+    sans-serif
+  );
+  font-size: var(--light-button-2-button-default-font-size, 15px);
+  font-weight: var(--light-button-2-button-default-font-weight, 500);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.button3 {
+  background: var(
+    --light-opacity-color-danger-danger-16percent,
+    rgba(234, 84, 85, 0.16)
+  );
+  border-radius: 6px;
+  opacity: 0.6499999761581421;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.text7 {
+  color: var(--light-solid-color-danger-danger-500-base, #ea5455);
+  text-align: left;
+  font-family: var(
+    --light-button-2-button-default-font-family,
+    "PublicSans-Medium",
+    sans-serif
+  );
+  font-size: var(--light-button-2-button-default-font-size, 15px);
+  font-weight: var(--light-button-2-button-default-font-weight, 500);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.custom-dropdown {
+  display: flex;
+  width: 452px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
